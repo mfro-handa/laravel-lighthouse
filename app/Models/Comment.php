@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
-    public function post(): BelongsTo
+    public function thread(): BelongsTo
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Thread::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
