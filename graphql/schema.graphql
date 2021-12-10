@@ -13,6 +13,6 @@ type User {
     id: ID!
     name: String!
     email: String!
-    created_at: DateTime!
-    updated_at: DateTime!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
 }
