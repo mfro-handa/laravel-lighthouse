@@ -7,6 +7,30 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 type Query {
     users: [User!]! @paginate(defaultCount: 3)
     user(id: ID @eq): User @find
+
+    threads: [Thread!]! @paginate(defaultCount: 5)
+    thread(id: ID @eq): Thread @find
+}
+
+type Mutation {
+    createThread(
+        title: String!
+    ): Thread! @create
+
+    createComment(
+        threadId: ID! @rename(attribute: "thread_id")
+        userId: ID! @rename(attribute: "user_id")
+        body: String!
+    ): Comment! @create
+
+    updateComment(
+        id: ID!
+        body: String!
+    ): Comment! @update
+
+    deleteComment(
+        id: ID!
+    ): Comment! @delete
 }
 
 type User {
@@ -15,4 +39,23 @@ type User {
     email: String!
     createdAt: DateTime! @rename(attribute: "created_at")
     updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+type Thread {
+    id: ID!
+    title: String!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+    comments: [Comment!]! @hasMany
+}
+
+type Comment {
+    id: ID!
+    threadId: ID! @rename(attribute: "thread_id")
+    userId: ID! @rename(attribute: "user_id")
+    body: String!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+    thread: Thread! @belongsTo
+    user: User! @belongsTo
 }

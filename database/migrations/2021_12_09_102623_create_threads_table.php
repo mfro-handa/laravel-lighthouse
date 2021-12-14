@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreateThreadsTable extends Migration
 {
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('threads', function (Blueprint $table) {
             $table->id('id');
-            $table->unsignedBigInteger('author_id');
             $table->string('title');
-            $table->string('content');
             $table->timestamps();
         });
     }
